@@ -3,6 +3,9 @@
   "crawl": {
     "enable": true,
     "include_nodes": true,
+    "task": {
+      "push_to": ["free"]
+    },
     "github": {
       "enable": true,
       "pages": 1,
