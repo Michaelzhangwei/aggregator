@@ -1,0 +1,34 @@
+name: Aggregator GitHub Crawl
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
+
+concurrency:
+  group: ${{ github.repository }}-process
+  cancel-in-progress: true
+
+env:
+  TZ: Asia/Shanghai
+  SUBSCRIBE_CONF: ${{ secrets.SUBSCRIBE_CONF }}
+  PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  ENABLE_SPECIAL_PROTOCOLS: "true"
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Process GitHub sources
+        run: python -u subscribe/process.py --overwrite --invisible
