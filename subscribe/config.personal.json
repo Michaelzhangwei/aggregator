@@ -29,8 +29,7 @@
       "list_only": false,
       "targets": {
         "clash": "free-clash",
-        "singbox": "free-singbox",
-        "v2ray": "free-v2ray"
+        "singbox": "free-singbox"
       }
     }
   },
@@ -46,11 +45,6 @@
         "username": "Michaelzhangwei",
         "gist_id": "48b7f66bf73070e19d294959c98ca087",
         "filename": "free-singbox.json"
-      },
-      "free-v2ray": {
-        "username": "Michaelzhangwei",
-        "gist_id": "48b7f66bf73070e19d294959c98ca087",
-        "filename": "free-v2ray.txt"
       }
     }
   }
