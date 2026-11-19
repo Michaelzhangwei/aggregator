@@ -1,0 +1,36 @@
+name: Aggregator Run
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 1"
+
+concurrency:
+  group: ${{ github.repository }}
+  cancel-in-progress: true
+
+env:
+  TZ: Asia/Shanghai
+  GIST_PAT: ${{ secrets.GIST_PAT }}
+  GIST_LINK: ${{ secrets.GIST_LINK }}
+  ENABLE_SPECIAL_PROTOCOLS: ${{ vars.ENABLE_SPECIAL_PROTOCOLS }}
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Validate secrets
+        run: |
+          test -n "$GIST_PAT"
+          test -n "$GIST_LINK"
+      - name: Collect proxies
+        run: python -u subscribe/collect.py --all --overwrite --skip
