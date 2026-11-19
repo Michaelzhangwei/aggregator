@@ -15,6 +15,8 @@ env:
   PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
   ENABLE_SPECIAL_PROTOCOLS: "true"
+  SKIP_ALIVE_CHECK: "true"
+  SKIP_REMARK: "true"
 
 jobs:
   process:
